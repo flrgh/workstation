@@ -4,3 +4,5 @@
     - common
     - fonts
     - flatpak
+    - role: geerlingguy.docker
+      become: true
