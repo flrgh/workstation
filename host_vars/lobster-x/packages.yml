@@ -11,6 +11,10 @@ install_packages:
   - python-virtualenv
   - python-pip
   - neovim
+  - python3-neovim
+  - python2-neovim
+  - golang
+  - composer
 
 remove_packages:
   - PackageKit-command-not-found
