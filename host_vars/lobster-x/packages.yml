@@ -12,12 +12,12 @@ install_packages:
   - python-pip
   - neovim
 
-remove_packages: []
+remove_packages:
+  - PackageKit-command-not-found
 
 flatpak_repos:
   - name: flathub
     url: https://flathub.org/repo/flathub.flatpakrepo
-
 
 flatpak_packages:
 
