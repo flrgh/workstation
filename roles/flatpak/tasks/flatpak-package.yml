@@ -1,0 +1,27 @@
+---
+- name: set pkg defaults
+  set_fact:
+    _pkg:
+      name: '{{ pkg.name }}'
+      repo: '{{ pkg.repo }}'
+      state: '{{ pkg.state | default(package_defaults.state) }}'
+      method: '{{ pkg.method | default(package_defaults.method) }}'
+
+- debug: var=_pkg
+
+- name: set command
+  set_fact:
+    install_pkg: 'install -y --{{ _pkg.method }} {{ _pkg.repo }} {{ _pkg.name }}'
+    remove_pkg: 'uninstall -y {{ _pkg.repo }}'
+
+- name: set add/remove command
+  set_fact:
+    pkg_cmd: '{{ (_pkg.state == "present") | ternary(install_pkg, remove_pkg) }}'
+
+- name: debug
+  debug:
+    var: pkg_cmd
+
+- name: add or remove the package
+  become: '{{ _pkg.method == "system" }}'
+  command: 'flatpak {{ pkg_cmd }}'

@@ -1,0 +1,20 @@
+---
+- name: ensure flatpak is installed
+  become: true
+  package:
+    name: flatpak
+    state: present
+
+- name: add/remove flatpak repositories
+  include_tasks: flatpak-repo.yml
+  with_items:
+    - '{{ flatpak_repos }}'
+  loop_control:
+    loop_var: repo
+
+- name: add/remove flatpak packages
+  include_tasks: flatpak-package.yml
+  with_items:
+    - '{{ flatpak_packages }}'
+  loop_control:
+    loop_var: pkg

@@ -13,3 +13,19 @@ install_packages:
   - neovim
 
 remove_packages: []
+
+flatpak_repos:
+  - name: flathub
+    url: https://flathub.org/repo/flathub.flatpakrepo
+
+
+flatpak_packages:
+
+  - name: com.slack.Slack
+    repo: flathub
+
+  - name: org.videolan.VLC
+    repo: flathub
+
+  - name: us.zoom.Zoom
+    repo: flathub

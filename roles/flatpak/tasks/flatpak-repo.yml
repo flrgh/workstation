@@ -1,0 +1,27 @@
+---
+- name: set repo defaults
+  set_fact:
+    _repo:
+      name: '{{ repo.name }}'
+      url: '{{ repo.url }}'
+      state: '{{ repo.state | default(repo_defaults.state) }}'
+      method: '{{ repo.method | default(repo_defaults.method) }}'
+
+- debug: var=_repo
+
+- name: set command
+  set_fact:
+    repo_add: 'remote-add --{{ _repo.method }} --if-not-exists {{ _repo.name }} {{ _repo.url }}'
+    repo_remove: 'remote-delete {{ _repo.name }}'
+
+- name: set add/remove command
+  set_fact:
+    repo_cmd: '{{ (_repo.state == "present") | ternary(repo_add, repo_remove) }}'
+
+- name: debug
+  debug:
+    var: repo_cmd
+
+- name: add or remove the repo
+  become: '{{ _repo.method == "system" }}'
+  command: 'flatpak {{ repo_cmd }}'
