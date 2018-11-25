@@ -1,0 +1,12 @@
+---
+- name: checkout the repo
+  git:
+    repo: 'https://github.com/michaeljmartin/.dotfiles.git'
+    dest: '/home/{{ lookup("env","USER") }}/.dotfiles'
+  register: repo
+
+- name: run the install script
+  shell: ./install.sh < /dev/null && ./install.sh < /dev/null
+  args:
+    chdir: '/home/{{ lookup("env","USER") }}/.dotfiles'
+  when: repo is changed

@@ -1,0 +1,29 @@
+---
+- name: ensure flatpak is installed
+  become: true
+  package:
+    name: flatpak
+    state: present
+
+# god damn flatpak module doesn't work
+
+#- name: Add the flathub flatpak repository remote to the user installation
+#  become: true
+#  flatpak_remote:
+#    name: flathub
+#    state: present
+#    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+#
+#- name: install slack
+#  flatpak:
+#    name: com.slack.Slack
+#    state: present
+#    remote: flathub
+
+- name: add flathub repo
+  become: true
+  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+- name: install slack
+  become: true
+  command: flatpak install --system -y flathub com.slack.Slack

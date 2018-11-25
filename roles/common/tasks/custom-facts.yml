@@ -1,0 +1,21 @@
+---
+- name: create the facts dir
+  become: yes
+  file:
+    path: /etc/ansible/facts.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+
+- name: set up current user fact
+  become: yes
+  copy:
+    src: current_user_fact
+    dest: /etc/ansible/facts.d/current_user.fact
+    mode: 0775
+  register: user_fact
+
+- name: refresh facts
+  setup:
+  when: user_fact is changed

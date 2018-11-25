@@ -1,0 +1,4 @@
+---
+- hosts: lobster-x
+  roles:
+    - dotfiles

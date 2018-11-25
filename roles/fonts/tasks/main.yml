@@ -1,0 +1,14 @@
+---
+- name: download those powerline fonts
+  git:
+    repo: https://github.com/powerline/fonts
+    dest: /tmp/powerline-fonts
+  register: repo
+
+- name: install fonts
+  command: ./install.sh
+  args:
+    chdir: /tmp/powerline-fonts
+  when: repo is changed
+  notify:
+    - clear font cache

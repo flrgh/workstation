@@ -1,0 +1,35 @@
+---
+- hosts: all
+  tasks:
+    - name: Gather all the vars
+      set_fact:
+        msg: |
+            Module Variables ("vars"):
+            --------------------------------
+            {{ vars | to_nice_json }}
+
+            Environment Variables ("environment"):
+            --------------------------------
+            {{ environment | to_nice_json }}
+
+            GROUP NAMES Variables ("group_names"):
+            --------------------------------
+            {{ group_names | to_nice_json }}
+
+            GROUPS Variables ("groups"):
+            --------------------------------
+            {{ groups | to_nice_json }}
+
+            HOST Variables ("hostvars"):
+            --------------------------------
+            {{ hostvars | to_nice_json }}
+
+    - name: Write data out to a file for easy digesting
+      copy:
+        content: '{{ msg }}'
+        dest: /tmp/ansible-debug.txt
+
+    - name: Print some debug information
+      debug:
+        msg: "{{ msg.split('\n') }}"
+      tags: debug_info

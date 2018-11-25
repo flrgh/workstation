@@ -1,0 +1,4 @@
+---
+assets_path: '{{ playbook_dir }}/../assets'
+
+ansible_python_interpreter: /usr/bin/python3

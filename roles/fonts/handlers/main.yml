@@ -1,0 +1,5 @@
+---
+- name: clear font cache
+  command: fc-cache -vf .
+  args:
+    chdir: '{{ ansible_local.current_user.home }}/.local/share/fonts'

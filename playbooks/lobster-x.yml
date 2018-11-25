@@ -1,0 +1,6 @@
+---
+- hosts: lobster-x
+  roles:
+    - common
+    - fonts
+    - slack

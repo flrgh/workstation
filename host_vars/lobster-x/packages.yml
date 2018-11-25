@@ -1,0 +1,15 @@
+---
+install_packages:
+  - vim
+  - tmux
+  - htop
+  - git
+  - lastpass-cli
+  - powerline-fonts
+  - libselinux-python
+  - jq
+  - python-virtualenv
+  - python-pip
+  - neovim
+
+remove_packages: []

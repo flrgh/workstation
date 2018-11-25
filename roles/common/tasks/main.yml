@@ -1,0 +1,26 @@
+---
+- name: set hostname
+  hostname:
+    name: '{{ inventory_hostname }}'
+
+- name: install desired packages
+  become: true
+  package:
+    name: '{{ pkg }}'
+    state: present
+  with_items: 
+    - '{{ install_packages }}'
+  loop_control:
+    loop_var: pkg
+
+- name: remove undesired packages
+  become: true
+  package:
+    name: '{{ pkg }}'
+    state: absent
+  with_items:
+    - '{{ remove_packages }}'
+  loop_control:
+    loop_var: pkg
+
+- include_tasks: custom-facts.yml
