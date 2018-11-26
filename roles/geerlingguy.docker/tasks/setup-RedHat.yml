@@ -34,9 +34,9 @@
     option: enabled
     value: '{{ docker_yum_repo_enable_test }}'
 
-#- name: (HACK) use Fedora 28 release server for docker-ce
-#  ini_file:
-#    dest: '/etc/yum.repos.d/docker-{{ docker_edition }}.repo'
-#    section: 'docker-{{ docker_edition }}-stable'
-#    option: baseurl
-#    value: '{{ lookup("ini", "baseurl section=docker-ce-stable file=/etc/yum.repos.d/docker-ce.repo") | replace("$releasever", "28") }}'
+- name: (HACK) use Fedora 28 release server for docker-ce
+  ini_file:
+    dest: '/etc/yum.repos.d/docker-{{ docker_edition }}.repo'
+    section: 'docker-{{ docker_edition }}-stable'
+    option: baseurl
+    value: '{{ lookup("ini", "baseurl section=docker-ce-stable file=/etc/yum.repos.d/docker-ce.repo") | replace("$releasever", "28") }}'
