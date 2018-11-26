@@ -3,6 +3,18 @@
   hostname:
     name: '{{ inventory_hostname }}'
 
+- name: install rpmfusion-free yum repo
+  become: true
+  yum:
+    name: http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
+    state: present
+
+- name: install rpmfusion-nonfree yum repo
+  become: true
+  yum:
+    name: http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm
+    state: present
+
 - name: install desired packages
   become: true
   package:
