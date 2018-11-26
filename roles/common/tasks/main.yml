@@ -18,21 +18,13 @@
 - name: install desired packages
   become: true
   dnf:
-    name: '{{ pkg }}'
+    name: '{{ install_packages}}'
     state: present
-  with_items:
-    - '{{ install_packages }}'
-  loop_control:
-    loop_var: pkg
 
 - name: remove undesired packages
   become: true
   dnf:
-    name: '{{ pkg }}'
+    name: '{{ remove_packages }}'
     state: absent
-  with_items:
-    - '{{ remove_packages }}'
-  loop_control:
-    loop_var: pkg
 
 - include_tasks: custom-facts.yml

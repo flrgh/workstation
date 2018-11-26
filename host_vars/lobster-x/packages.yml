@@ -15,6 +15,7 @@ install_packages:
   - python2-neovim
   - golang
   - composer
+  - iftop
 
 remove_packages:
   - PackageKit-command-not-found
