@@ -17,7 +17,7 @@
 
 - name: install desired packages
   become: true
-  package:
+  dnf:
     name: '{{ pkg }}'
     state: present
   with_items:
@@ -27,7 +27,7 @@
 
 - name: remove undesired packages
   become: true
-  package:
+  dnf:
     name: '{{ pkg }}'
     state: absent
   with_items:
