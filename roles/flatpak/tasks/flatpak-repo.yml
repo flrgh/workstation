@@ -9,6 +9,15 @@
 
 - debug: var=_repo
 
+- name: check repo state
+  shell: "flatpak remotes | grep -P '^{{ _repo.name }}[\\s\\t]+{{ _repo.method }}' || true"
+  register: state_check
+  changed_when: false
+
+- name: set current state
+  set_fact:
+    current_state: '{{ (state_check.stdout_lines | length > 0) | ternary("present", "absent")}}'
+
 - name: set command
   set_fact:
     repo_add: 'remote-add --{{ _repo.method }} --if-not-exists {{ _repo.name }} {{ _repo.url }}'
@@ -25,3 +34,4 @@
 - name: add or remove the repo
   become: '{{ _repo.method == "system" }}'
   command: 'flatpak {{ repo_cmd }}'
+  when: current_state != _repo.state
