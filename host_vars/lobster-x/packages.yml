@@ -16,6 +16,9 @@ install_packages:
   - golang
   - composer
   - iftop
+  - lua
+  - lua-penlight
+  - lua-posix
 
 remove_packages:
   - PackageKit-command-not-found
