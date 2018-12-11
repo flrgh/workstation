@@ -1,0 +1,22 @@
+---
+- name: Add the sysdig GPG key
+  become: true
+  rpm_key:
+    key: https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public
+    state: present
+
+- name: Add the sysdig repository
+  become: true
+  get_url:
+    url: https://s3.amazonaws.com/download.draios.com/stable/rpm/draios.repo
+    dest: /etc/yum.repos.d/draios.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install sysdig
+  become: true
+  dnf:
+    name: sysdig
+    state: present
+
